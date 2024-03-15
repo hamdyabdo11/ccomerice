@@ -1,0 +1,68 @@
+<section  class="py-3">
+  <div  class="row g-0">
+    <div class="col-md-9">
+      <owl-carousel-o [options]="mainSliderOptions">
+        <ng-template carouselSlide>
+<img height="400" width="100%" src="./assets/imgs/22.jpg" alt="">
+        </ng-template>
+        <ng-template carouselSlide>
+          <img height="400"    src="./assets/imgs/11.jpg" alt="">
+                  </ng-template>
+
+                  <ng-template carouselSlide>
+                    <img height="400"  src="./assets/imgs/shopping-bag-cart.jpg" alt="">
+                            </ng-template>
+
+
+      </owl-carousel-o>
+    </div>
+    <div class="col-md-3">
+      <img height="200" class="w-100" src="./assets/imgs/3.jpg" alt="">
+      <img height="200" class="w-100" src="./assets/imgs/2147695911.jpg" alt="">
+    </div>
+  </div>
+</section>
+
+
+<section class="py-4" *ngIf="catagories.length>0">
+  <h2 class="text-center text-main">Trend Categories</h2>
+  <owl-carousel-o [options]="catagoryOptions">
+
+    <ng-container *ngFor="let catagory of catagories">
+      <ng-template carouselSlide >
+        <img  height="300" width="90px" class="p-1" [src]="catagory.image" [alt]="catagory.name" [title]="catagory.name">
+        <h3 class="h6 text-main text-center p-2">{{catagory.name}}</h3>
+      </ng-template>
+    </ng-container>
+
+  </owl-carousel-o>
+
+</section>
+
+
+<section class="py-4 text-main" *ngIf="products.length>0">
+    <h2 class="text-center">Trend Products</h2>
+    <div class="row g-4">
+      <div *ngFor="let product of products |slice:0:16" class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+        <div class="product h-100">
+          <header role="button" [routerLink]="['/productdetails',product._id]">
+                <img class="w-100" [src]="product.imageCover" [title]="product.title" [alt]="product.title">
+              <div class="p-1">
+                <h3 class="h6 ">{{product.title|cutttext:2}}</h3>
+              <h4 class="h6 small text-main">{{product.category.name}}</h4>
+              <div class="d-flex align-items-center justify-content-between small">
+                <span class="d-block">{{product.price|currency :'E£ '}}
+                </span>
+                <div>   <i class="fas fa-star rating-color"></i>
+                  <span class="text-muted">{{product.ratingsAverage}}</span></div>
+              </div>
+              </div>
+          </header>
+          <footer>
+            <button (click)="addProduct(product._id,btnAdd)" #btnAdd class="btn-main w-100 py-1">+ Add To Cart</button>
+          </footer>
+        </div>
+      </div>
+    </div>
+
+</section>

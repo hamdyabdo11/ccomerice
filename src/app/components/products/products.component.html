@@ -1,0 +1,48 @@
+<section class="py-4 text-main" *ngIf="products.length>0">
+  <div class="row g-4 justify-content-center">
+    <div *ngFor="let product of products | paginate: { id: 'productPaginate',
+    itemsPerPage: pageSize,
+    currentPage: currentPage,
+    totalItems: total}" class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+      <div class="product h-100">
+        <header role="button" [routerLink]="['/productdetails',product._id]">
+              <img class="w-100" [src]="product.imageCover" [title]="product.title" [alt]="product.title">
+            <div class="p-1">
+              <h3 class="h6 ">{{product.title|cutttext:2}}</h3>
+            <h4 class="h6 small text-main">{{product.category.name}}</h4>
+            <div class="d-flex align-items-center justify-content-between small">
+              <span class="d-block">{{product.price|currency :'E£ '}}
+              </span>
+              <div>   <i class="fas fa-star rating-color"></i>
+                <span class="text-muted">{{product.ratingsAverage}}</span></div>
+            </div>
+            </div>
+        </header>
+        <footer>
+          <button (click)="addProduct(product._id,btnAdd)" #btnAdd class="btn-main w-100 py-1">+ Add To Cart</button>
+        </footer>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!--------------------- //pagination ------------------>
+
+<div class="pt-5 text-center">
+  <pagination-controls  id="productPaginate"
+                      (pageChange)="pageChanged($event)"
+                      (pageBoundsCorrection)="pageChanged($event)"
+                      [maxSize]="9"
+                      [directionLinks]="true"
+                      [autoHide]="true"
+                      [responsive]="true"
+                      previousLabel="Previous"
+                      nextLabel="Next"
+                      screenReaderPaginationLabel="Pagination"
+                      screenReaderPageLabel="page"
+                      screenReaderCurrentLabel="You're on page">
+</pagination-controls>
+</div>
+
+</section>
